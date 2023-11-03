@@ -1,5 +1,5 @@
 fn: "resize"
 stac: 
    class: Directory
-   path: "../stac_2"
+   path: "/stac"
 size: "50%"
