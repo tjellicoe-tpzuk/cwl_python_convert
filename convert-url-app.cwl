@@ -2,9 +2,6 @@ cwlVersion: v1.2
 
 
 class: CommandLineTool
-doc: Convert Stac
-id: convert-stac
-label: convert stac app
 id: convert
 inputs:
   fn:
@@ -28,3 +25,5 @@ outputs:
 requirements:
   DockerRequirement:
     dockerPull: tjellicoetpzuk/convert:latest
+  NetworkAccess:
+    networkAccess: true
