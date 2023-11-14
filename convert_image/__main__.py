@@ -69,7 +69,8 @@ def invert_get_type(args):
 def convert_url(url_name:str, size:str):
     domainName = os.path.dirname(url_name)
     outName = url_name.replace(domainName + "/", "")
-    outName = outName.replace(".", f"scaled_by_{size}-NEW.")
+    #outName = outName.replace(".", f"scaled_by_{size}-NEW.")
+    outName = outName.replace(".", "-NEW.")
     #fileType = os.path.splitext(url_name)
 
     response = requests.get(url_name)
@@ -78,8 +79,8 @@ def convert_url(url_name:str, size:str):
         out_size_tuple = size_to_tuple_url(url_name, out_size)
         out_im = im.resize(out_size_tuple)
         out_im.save(outName)
-    createStacItem(outName.replace(".png", ""))
-    createStacCatelogRoot(outName.replace(".png", ""))
+    #createStacItem(outName.replace(".png", ""))
+    #createStacCatelogRoot(outName.replace(".png", ""))
 
 def convert_stac(file_dir:str, size:str):
 
@@ -107,7 +108,8 @@ def convert_stac(file_dir:str, size:str):
     fileName = jsonFile['assets']['logo']['href']
     print(fileName)
 
-    outName = fileName.replace(".", f"scaled_by_{size}-NEW.")
+    #outName = fileName.replace(".", f"scaled_by_{size}-NEW.")
+    outName = outName.replace(".", "-NEW.")
     imgFileLocation = file_dir + "/" + fileName
     ## convert file as before, then update STAC data in JSON (new function for this)
 
@@ -124,7 +126,8 @@ def convert_file(file_name:str, size:str):
     print("HERE")
     dirName = os.path.dirname(file_name)
     outName = file_name.replace(dirName + "/", "")
-    outName = outName.replace(".", f"_scaled_by_{size}-NEW.")
+    #outName = outName.replace(".", f"_scaled_by_{size}-NEW.")
+    outName = outName.replace(".", "-NEW.")
     with Image.open(file_name) as im:
         #im.show("Orignal Image")
         out_size = percent_to_num(size)
