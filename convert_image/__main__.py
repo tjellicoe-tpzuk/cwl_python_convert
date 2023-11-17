@@ -13,6 +13,8 @@ import time
 import datetime as dt
 import mimetypes
 
+out_dir = os.getcwd()
+
 ## function to determine function to be done, here only resize or invert
 def do_func(args): # input is --fn invert --url "url" --size "ss"
     func = args[1]
@@ -118,7 +120,7 @@ def convert_stac(file_dir:str, size:str):
         out_size_tuple = size_to_tuple_file(imgFileLocation, out_size)
         out_im = im.resize(out_size_tuple)
         print("here " + outName)
-        out_im.save(outName)
+        out_im.save(out_dir + "/" + outName)
     createStacItem(outName.replace(".png", ""))
     createStacCatelogRoot(outName.replace(".png", ""))
 
@@ -135,7 +137,7 @@ def convert_file(file_name:str, size:str):
         out_im = im.resize(out_size_tuple)
         print("here " + outName)
         #outName = "outimage.png"
-        out_im.save(outName)
+        out_im.save(out_dir + "/" + outName)
     createStacItem(outName.replace(".png", ""))
     createStacCatelogRoot(outName.replace(".png", ""))
 
@@ -152,8 +154,8 @@ def createStacItem(outName) :
     now = time.time_ns()/1_000_000_000
     dateNow = dt.datetime.fromtimestamp(now)
     dateNow = dateNow.strftime('%Y-%m-%dT%H:%M:%S.%f') + "Z"
-    size = os.path.getsize(f"{outName}.png")
-    mime = mimetypes.guess_type(f"{outName}.png")[0]
+    size = os.path.getsize(f"{out_dir}/{outName}.png")
+    mime = mimetypes.guess_type(f"{out_dir}/{outName}.png")[0]
     data = {"stac_version": "1.0.0",
   "id": f"{outName}-{now}",
   "type": "Feature",
@@ -190,14 +192,14 @@ def createStacItem(outName) :
   }, {
     "type": "application/geo+json",
     "rel": "self",
-    "href": f"{outName}.json"
+    "href": f"{out_dir}/{outName}.json"
   }, {
     "type": "application/json",
     "rel": "root",
     "href": "catalog.json"
   }]
 }
-    with open(f'{outName}.json', 'w', encoding='utf-8') as f:
+    with open(f'{out_dir}/{outName}.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 def createStacCatelogRoot(outName) :
@@ -209,14 +211,14 @@ def createStacCatelogRoot(outName) :
   "links": [{
     "type": "application/geo+json",
     "rel": "item",
-    "href": f"{outName}.json"
+    "href": f"{out_dir}/{outName}.json"
   }, {
     "type": "application/json",
     "rel": "self",
     "href": "catalog.json"
   }]
 }
-    with open('catelog.json', 'w', encoding='utf-8') as f:
+    with open(f'{out_dir}/catelog.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 ## Convert input size string to a double - removing percentage
