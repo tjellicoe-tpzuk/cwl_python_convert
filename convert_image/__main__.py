@@ -79,8 +79,8 @@ def convert_url(url_name:str, size:str):
         out_size_tuple = size_to_tuple_url(url_name, out_size)
         out_im = im.resize(out_size_tuple)
         out_im.save(outName)
-    #createStacItem(outName.replace(".png", ""))
-    #createStacCatelogRoot(outName.replace(".png", ""))
+    createStacItem(outName.replace(".png", ""))
+    createStacCatelogRoot(outName.replace(".png", ""))
 
 def convert_stac(file_dir:str, size:str):
 
@@ -190,7 +190,7 @@ def createStacItem(outName) :
   }, {
     "type": "application/geo+json",
     "rel": "self",
-    "href": f"{outName}.png"
+    "href": f"{outName}.json"
   }, {
     "type": "application/json",
     "rel": "root",
