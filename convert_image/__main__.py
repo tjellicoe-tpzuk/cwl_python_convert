@@ -82,7 +82,7 @@ def convert_url(url_name:str, size:str):
         out_im = im.resize(out_size_tuple)
         out_im.save(outName)
     createStacItem(outName.replace(".png", ""))
-    createStacCatelogRoot(outName.replace(".png", ""))
+    createStacCatalogRoot(outName.replace(".png", ""))
 
 def convert_stac(file_dir:str, size:str):
 
@@ -122,7 +122,7 @@ def convert_stac(file_dir:str, size:str):
         print("here " + outName)
         out_im.save(out_dir + "/" + outName)
     createStacItem(outName.replace(".png", ""))
-    createStacCatelogRoot(outName.replace(".png", ""))
+    createStacCatalogRoot(outName.replace(".png", ""))
 
 def convert_file(file_name:str, size:str):
     print("HERE")
@@ -139,7 +139,7 @@ def convert_file(file_name:str, size:str):
         #outName = "outimage.png"
         out_im.save(out_dir + "/" + outName)
     createStacItem(outName.replace(".png", ""))
-    createStacCatelogRoot(outName.replace(".png", ""))
+    createStacCatalogRoot(outName.replace(".png", ""))
 
 def invert_file(file_name:str, size:str):
 
@@ -202,7 +202,7 @@ def createStacItem(outName) :
     with open(f'{out_dir}/{outName}.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-def createStacCatelogRoot(outName) :
+def createStacCatalogRoot(outName) :
     data = {
   "stac_version": "1.0.0",
   "id": "catalog",
@@ -218,7 +218,7 @@ def createStacCatelogRoot(outName) :
     "href": "catalog.json"
   }]
 }
-    with open(f'{out_dir}/catelog.json', 'w', encoding='utf-8') as f:
+    with open(f'{out_dir}/catalog.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 ## Convert input size string to a double - removing percentage
