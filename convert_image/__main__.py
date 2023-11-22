@@ -80,7 +80,7 @@ def convert_url(url_name:str, size:str):
         out_size = percent_to_num(size)
         out_size_tuple = size_to_tuple_url(url_name, out_size)
         out_im = im.resize(out_size_tuple)
-        out_im.save(outName)
+        out_im.save(f"{out_dir}/{outName}")
     createStacItem(outName.replace(".png", ""))
     createStacCatalogRoot(outName.replace(".png", ""))
 
@@ -137,7 +137,7 @@ def convert_file(file_name:str, size:str):
         out_im = im.resize(out_size_tuple)
         print("here " + outName)
         #outName = "outimage.png"
-        out_im.save(out_dir + "/" + outName)
+        out_im.save(f"{out_dir}/{outName}")
     createStacItem(outName.replace(".png", ""))
     createStacCatalogRoot(outName.replace(".png", ""))
 
@@ -154,8 +154,8 @@ def createStacItem(outName) :
     now = time.time_ns()/1_000_000_000
     dateNow = dt.datetime.fromtimestamp(now)
     dateNow = dateNow.strftime('%Y-%m-%dT%H:%M:%S.%f') + "Z"
-    size = os.path.getsize(f"{out_dir}/{outName}.png")
-    mime = mimetypes.guess_type(f"{out_dir}/{outName}.png")[0]
+    size = os.path.getsize(f"{outName}.png")
+    mime = mimetypes.guess_type(f"{outName}.png")[0]
     data = {"stac_version": "1.0.0",
   "id": f"{outName}-{now}",
   "type": "Feature",
@@ -192,14 +192,14 @@ def createStacItem(outName) :
   }, {
     "type": "application/geo+json",
     "rel": "self",
-    "href": f"{out_dir}/{outName}.json"
+    "href": f"{outName}.json"
   }, {
     "type": "application/json",
     "rel": "root",
     "href": "catalog.json"
   }]
 }
-    with open(f'{out_dir}/{outName}.json', 'w', encoding='utf-8') as f:
+    with open(f"{out_dir}/{outName}.json", 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 def createStacCatalogRoot(outName) :
@@ -211,7 +211,7 @@ def createStacCatalogRoot(outName) :
   "links": [{
     "type": "application/geo+json",
     "rel": "item",
-    "href": f"{out_dir}/{outName}.json"
+    "href": f"{outName}.json"
   }, {
     "type": "application/json",
     "rel": "self",
