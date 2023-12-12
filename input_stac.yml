@@ -1,5 +1,5 @@
 fn: "resize"
-stac: 
-   class: Directory
-   path: "/stac"
+stac:
+  class: Directory
+  path: "stac"
 size: "50%"

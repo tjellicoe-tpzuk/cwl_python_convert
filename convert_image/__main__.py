@@ -25,6 +25,7 @@ def do_func(args): # input is --fn invert --url "url" --size "ss"
     elif func == "invert":
         ##call invert func
         invert_get_type(args)
+        print("Invert is not yet supported in this build!")
         #convert_get_type(args)
     else:
         raise Exception('This function is not supported in current implementation', func)
@@ -72,7 +73,7 @@ def convert_url(url_name:str, size:str):
     domainName = os.path.dirname(url_name)
     outName = url_name.replace(domainName + "/", "")
     #outName = outName.replace(".", f"scaled_by_{size}-NEW.")
-    outName = outName.replace(".", "-NEW.")
+    outName = outName.replace(".png", "-NEW.png")
     #fileType = os.path.splitext(url_name)
 
     response = requests.get(url_name)
@@ -111,7 +112,7 @@ def convert_stac(file_dir:str, size:str):
     print(fileName)
 
     #outName = fileName.replace(".", f"scaled_by_{size}-NEW.")
-    outName = outName.replace(".", "-NEW.")
+    outName = fileName.replace(".", "-NEW.")
     imgFileLocation = file_dir + "/" + fileName
     ## convert file as before, then update STAC data in JSON (new function for this)
 

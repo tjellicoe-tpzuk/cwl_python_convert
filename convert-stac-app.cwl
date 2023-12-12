@@ -23,4 +23,4 @@ outputs:
       glob: .
 requirements:
   DockerRequirement:
-    dockerPull: tjellicoetpzuk/convert:latest
+    dockerPull: tjellicoetpzuk/convert_new:latest
