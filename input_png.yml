@@ -1,0 +1,5 @@
+fn: "resize"
+file_name: 
+  class: File
+  path: "test_images/dog.png"
+size: "500%"
